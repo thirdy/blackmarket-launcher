@@ -15,9 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package net.thirdy.blackmarket.launcher;
+package net.thirdy.blackmarket.updater;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.airhacks.airfield.TakeDown;
@@ -30,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -47,20 +45,20 @@ public class Main  extends Application {
         String remote = args.size() == 2 ? args.get(1) : "https://github.com/thirdy/blackmarket-release.git";
         
         if (args.size() == 1 && "-skip".equalsIgnoreCase(args.get(0))) {
-			runBlackmarketAndExit(local);
+        	Platform.exit();
 			return;
 		}
        
 		TakeDown installer = new TakeDown(local, remote);
         AirfieldService airfieldService = new AirfieldService(installer);
         
-        airfieldService.setOnSucceeded(e -> Main.runBlackmarketAndExit(local));
+        airfieldService.setOnSucceeded(e -> Platform.exit());
         airfieldService.setOnFailed(e -> {
         	Dialogs.showExceptionDialog(airfieldService.getException());
         	Platform.exit();
         });
 		
-        Label status = new Label("Sucessfully started Blackmarket Launcher");
+        Label status = new Label("Sucessfully started Blackmarket Updater");
         status.textProperty().bind(airfieldService.messageProperty());
         
         ProgressIndicator p = new ProgressIndicator();
@@ -73,25 +71,43 @@ public class Main  extends Application {
 
 		Scene scene = new Scene(root, 300, 250);
 
-		primaryStage.setTitle("Blackmarket Launcher");
+		primaryStage.setTitle("Blackmarket Updater");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 		airfieldService.start();
 	}
 
-	private static void runBlackmarketAndExit(String local) {
-		System.out.println("Running Blackmarket Actual");
-		try {
-			Process p = new ProcessBuilder(local + "/blackmarket-actual.exe").start();
-			System.out.println("Successfully started Blackmarket Actual, launcher is now exiting.");
-		} catch (IOException e) {
-			System.out.println("Failed to launch blackmarket-actual.exe");
-			e.printStackTrace();
-			Dialogs.showExceptionDialog(e);
-		}
-		Platform.exit();
-	}
+	// CAN'T GET THIS TO WORK
+//	private static void runBlackmarketAndExit(String local) {
+//		String exe = local + "/blackmarket-actual.exe";
+////		String exe = "notepad.exe";
+////		String exe = "blackmarket-actual.exe";
+//		CommandLine cmdLine = new CommandLine(exe);
+//		DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+//		Executor executor = new DefaultExecutor();
+//		executor.setExitValue(1);
+//
+//
+//		System.out.println("Running Blackmarket Actual: " + exe);
+//		try {
+//
+//			executor.execute(cmdLine, resultHandler);
+//			resultHandler.waitFor();
+//
+////			String[] args1 = {exe};
+////			Runtime r = Runtime.getRuntime();
+////			Process p = r.exec(args1);
+////			Process p = new ProcessBuilder(exe).start();
+////			p.waitFor();
+//			System.out.println("Successfully started Blackmarket Actual, launcher is now exiting.");
+//		} catch ( Exception e) {
+//			System.out.println("Failed to launch blackmarket-actual.exe");
+//			e.printStackTrace();
+//			Dialogs.showExceptionDialog(e);
+//		}
+//		Platform.exit();
+//	}
 
 	public static void main(String[] args) {
 		System.out.println("Commandline usage:");
@@ -113,7 +129,7 @@ public class Main  extends Application {
         protected Task<Void> createTask() {
             return new Task<Void>() {
                 @Override
-                protected Void call() throws BlackmarketLauncherException {
+                protected Void call() throws BlackmarketUpdaterException {
                 	updateMessage("Now making sure that Blackmarket is up-to-date.");
                 	installer.installOrUpdate();
                 	updateMessage("Auto-update done. Launching Blackmarket.");

@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.thirdy</groupId>
-	<artifactId>blackmarket-launcher</artifactId>
+	<artifactId>blackmarketupdater</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<name>blackmarket-launcher</name>
+	<name>blackmarketupdater</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>net.thirdy.blackmarket.launcher.Main</mainClass>
+		<mainClass>net.thirdy.blackmarket.updater.Main</mainClass>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -19,11 +19,16 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>4.1.0.201509280440-r</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-exec</artifactId>
+			<version>1.3</version>
+		</dependency>
 	</dependencies>
 
 
 	<build>
-		<finalName>blackmarket</finalName>
+		<finalName>blackmarketupdater</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -47,7 +52,7 @@
 							<mainClass>${mainClass}</mainClass>
 						</manifest>
 					</archive>
-					<finalName>blackmarket</finalName>
+					<finalName>blackmarketupdater</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>
@@ -73,9 +78,9 @@
 						</goals>
 						<configuration>
 							<headerType>console</headerType>
-							<outfile>target/blackmarket.exe</outfile>
-							<jar>target/blackmarket.jar</jar>
-							<errTitle>blackmarket</errTitle>
+							<outfile>target/blackmarketupdater.exe</outfile>
+							<jar>target/blackmarketupdater.jar</jar>
+							<errTitle>blackmarketupdater</errTitle>
 							<supportUrl>http://thirdy.github.io/blackmarket/</supportUrl>
 							<classPath>
 								<mainClass>${mainClass}</mainClass>
@@ -97,9 +102,9 @@
 								<copyright>Copyright (C) 2015 Vicente de Rivera III</copyright>
 								<productVersion>1.0.0.0</productVersion>
 								<txtProductVersion>1.0</txtProductVersion>
-								<productName>Blackmarket</productName>
-								<internalName>blackmarket</internalName>
-								<originalFilename>blackmarket.exe</originalFilename>
+								<productName>BlackmarketUpdater</productName>
+								<internalName>blackmarketupdater</internalName>
+								<originalFilename>blackmarketupdater.exe</originalFilename>
 							</versionInfo>
 						</configuration>
 					</execution>
