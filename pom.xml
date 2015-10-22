@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.thirdy</groupId>
-	<artifactId>blackmarketupdater</artifactId>
+	<artifactId>blackmarket-updater</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<name>blackmarketupdater</name>
+	<name>blackmarket-updater</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,7 +28,7 @@
 
 
 	<build>
-		<finalName>blackmarketupdater</finalName>
+		<finalName>blackmarket-updater</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -52,7 +52,7 @@
 							<mainClass>${mainClass}</mainClass>
 						</manifest>
 					</archive>
-					<finalName>blackmarketupdater</finalName>
+					<finalName>blackmarket-updater</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>
@@ -78,9 +78,9 @@
 						</goals>
 						<configuration>
 							<headerType>console</headerType>
-							<outfile>target/blackmarketupdater.exe</outfile>
-							<jar>target/blackmarketupdater.jar</jar>
-							<errTitle>blackmarketupdater</errTitle>
+							<outfile>target/blackmarket-up.exe</outfile>
+							<jar>target/blackmarket-updater.jar</jar>
+							<errTitle>blackmarket-up</errTitle>
 							<supportUrl>http://thirdy.github.io/blackmarket/</supportUrl>
 							<classPath>
 								<mainClass>${mainClass}</mainClass>
@@ -102,9 +102,9 @@
 								<copyright>Copyright (C) 2015 Vicente de Rivera III</copyright>
 								<productVersion>1.0.0.0</productVersion>
 								<txtProductVersion>1.0</txtProductVersion>
-								<productName>BlackmarketUpdater</productName>
-								<internalName>blackmarketupdater</internalName>
-								<originalFilename>blackmarketupdater.exe</originalFilename>
+								<productName>Blackmarket-up</productName>
+								<internalName>blackmarket-up</internalName>
+								<originalFilename>blackmarket-up.exe</originalFilename>
 							</versionInfo>
 						</configuration>
 					</execution>
