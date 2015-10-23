@@ -4,6 +4,7 @@ package com.airhacks.airfield;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullCommand;
@@ -27,7 +28,7 @@ public class TakeDown {
 	private ProgressMonitor monitor;
 
     public TakeDown(String localPath, String remotePath) {
-    	monitor = new TextProgressMonitor();
+    	monitor = new TextProgressMonitor(new PrintWriter(System.err));
         this.remotePath = remotePath;
         this.localPath = localPath;
     }
