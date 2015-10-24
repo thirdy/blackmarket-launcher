@@ -31,7 +31,6 @@
 }
 
 #backgroundImageView {
-    -fx-image: url("/DarkshrineAnnouncement.jpg");
 }
 #updaterMessagesTextAreaPane * {
 	-fx-background-color: transparent;

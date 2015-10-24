@@ -26,6 +26,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import com.airhacks.airfield.TakeDown;
 
@@ -47,6 +48,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -118,7 +120,23 @@ public class Main extends Application {
         VBox changelogTextAreaPane = new VBox(changelogTextArea);
         changelogTextAreaPane.setId("changelogTextAreaPane");
         
-        HBox centerPane = new HBox(updaterMessagesTextAreaPane, changelogTextAreaPane);
+        int randomIdx = new Random().nextInt(2);
+        System.out.println("randomIdx: " + randomIdx);
+        String images = new String[] {"/DarkshrineAnnouncement.jpg", "/gggbanner-plain.png"} [randomIdx];
+        ImageView backgroundImageView = new ImageView(images);
+
+        HBox centerPane = new HBox();
+        
+        if (randomIdx == 1) {
+        	changelogTextArea.setStyle("-fx-text-fill: black; -fx-font-weight: normal; -fx-font-size: 11pt;  -fx-font-family: \"Serif\"");
+        	updaterMessagesTextArea.setStyle("-fx-text-fill: black;");
+        	updaterMessagesTextArea.setMinWidth(230);
+        	centerPane.getChildren().addAll(changelogTextAreaPane, updaterMessagesTextAreaPane);
+        } else {
+        	centerPane.getChildren().addAll(updaterMessagesTextAreaPane, changelogTextAreaPane);
+        }
+        
+        
         centerPane.setSpacing(10);
         centerPane.setId("centerPane");
         BorderPane widgetsPane = new BorderPane();
@@ -126,13 +144,12 @@ public class Main extends Application {
 		widgetsPane.setCenter(centerPane);
         StackPane bottom = new StackPane(p, status, launchBtn);
         widgetsPane.setBottom(bottom);
-        
-        ImageView backgroundImageView = new ImageView();
+
         backgroundImageView.setId("backgroundImageView");
         StackPane root = new StackPane(backgroundImageView, widgetsPane);
         root.setId("root");
         
-		Scene scene = new Scene(root, 665, 359);
+		Scene scene = new Scene(root, backgroundImageView.getImage().getWidth(), 359);
 		scene.getStylesheets().add(this.getClass().getResource("/css/blackmarket-launcher.css").toExternalForm());
 		primaryStage.setTitle("Blackmarket Launcher");
 		primaryStage.getIcons().add(new Image("/black-market-small.png"));
