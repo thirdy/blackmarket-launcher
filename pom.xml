@@ -85,7 +85,7 @@
 							<headerType>console</headerType>
 							<outfile>target/blackmarket-launcher.exe</outfile>
 							<jar>target/blackmarket-launcher.jar</jar>
-							<errTitle>blackmarket-up</errTitle>
+							<errTitle>blackmarket-launcher</errTitle>
 							<supportUrl>http://thirdy.github.io/blackmarket/</supportUrl>
 							<classPath>
 								<mainClass>${mainClass}</mainClass>
