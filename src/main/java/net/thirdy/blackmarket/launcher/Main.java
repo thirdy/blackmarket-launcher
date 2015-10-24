@@ -41,14 +41,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextAreaBuilder;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -71,7 +69,8 @@ public class Main extends Application {
         	return;
         }
         
-        TextArea updaterMessagesTextArea = TextAreaBuilder.create().wrapText(true).build();
+        TextArea updaterMessagesTextArea = new TextArea();
+        updaterMessagesTextArea.setWrapText(true);
         updaterMessagesTextArea.setId("updaterMessagesTextArea");
         
         PrintStream takedownPrintStream = new PrintStream(new Console(updaterMessagesTextArea), true) {
@@ -96,7 +95,8 @@ public class Main extends Application {
         	finishedAllTasks();
         });
         
-        TextArea changelogTextArea = TextAreaBuilder.create().wrapText(true).build();
+        TextArea changelogTextArea = new TextArea();
+        changelogTextArea.setWrapText(true);
         changelogTextArea.setId("changelogTextArea");
         
         Button launchBtn = new Button("Launch");
