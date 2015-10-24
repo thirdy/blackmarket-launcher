@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package net.thirdy.blackmarket.updater;
+package net.thirdy.blackmarket.launcher;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -31,6 +31,15 @@ import javafx.scene.layout.VBox;
  *
  */
 public class Dialogs {
+	
+	
+	public static void showInfo(String string, String title) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText("");
+		alert.setContentText(string);
+		alert.showAndWait();
+	}
 	
 	public static void showExceptionDialog(Throwable throwable) {
 		Alert alert = new Alert(AlertType.ERROR);

@@ -4,6 +4,7 @@ package com.airhacks.airfield;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 
 import org.eclipse.jgit.api.Git;
@@ -14,7 +15,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ProgressMonitor;
 import org.eclipse.jgit.lib.TextProgressMonitor;
 
-import net.thirdy.blackmarket.updater.BlackmarketUpdaterException;
+import net.thirdy.blackmarket.launcher.BlackmarketUpdaterLauncher;
 
 /**
  *
@@ -26,48 +27,52 @@ public class TakeDown {
     private final String localPath;
     private Git git;
 	private ProgressMonitor monitor;
+	private PrintStream ps;
 
-    public TakeDown(String localPath, String remotePath) {
-    	monitor = new TextProgressMonitor(new PrintWriter(System.err));
+    public TakeDown(String localPath, String remotePath, PrintStream ps) {
+    	this.ps = ps;
+    	monitor = new TextProgressMonitor(new PrintWriter(ps, true));
         this.remotePath = remotePath;
         this.localPath = localPath;
     }
 
-    void initialDownload() throws BlackmarketUpdaterException {
+    void initialDownload() throws BlackmarketUpdaterLauncher {
         try {
             this.git = Git.cloneRepository()
                     .setURI(remotePath)
                     .setProgressMonitor(monitor)
                     .setDirectory(new File(localPath))
                     .call();
-            System.out.println("+App installed into: " + this.localPath);
+            ps.println("+App installed into: " + this.localPath);
         } catch (GitAPIException ex) {
-            throw new BlackmarketUpdaterException("--Cannot download files: " + ex.getMessage(), ex);
+            throw new BlackmarketUpdaterLauncher("--Cannot download files: " + ex.getMessage(), ex);
         }
 
     }
 
-    void update() throws BlackmarketUpdaterException {
+    boolean update() throws BlackmarketUpdaterLauncher {
     	 try {
              this.git
              	.reset()
              	.setMode(ResetCommand.ResetType.HARD).call();
 
-             System.out.println("+Changed files removed");
+//             ps.println("+Changed files removed");
          } catch (GitAPIException ex) {
-             throw new BlackmarketUpdaterException("Cannot reset local repository", ex);
+             throw new BlackmarketUpdaterLauncher("Cannot reset local repository", ex);
          }
         PullCommand command = this.git.pull();
         command.setProgressMonitor(monitor);
         try {
             PullResult pullResult = command.call();
             if (pullResult.isSuccessful()) {
-                System.out.println("+Files updated, ready to start!");
+            	ps.println("+Files updated, ready to start!");
             } else {
-                System.out.println("--Download was not successful " + pullResult.toString());
+            	ps.println("--Download was not successful " + pullResult.toString());
             }
+            boolean localrepoUpdate = !pullResult.getFetchResult().getTrackingRefUpdates().isEmpty();
+			return localrepoUpdate;
         } catch (GitAPIException ex) {
-        	throw new BlackmarketUpdaterException("Exception on PullCommand.call()", ex);
+        	throw new BlackmarketUpdaterLauncher("Exception on PullCommand.call()", ex);
         }
     }
 
@@ -76,20 +81,28 @@ public class TakeDown {
         try {
             this.git = Git.open(localRepo);
         } catch (IOException ex) {
-            System.out.println("-" + ex.getMessage());
+        	ps.println("-" + ex.getMessage());
             return false;
         }
-        System.out.println("+Application already installed at: " + this.localPath);
+        ps.println("+Application installed at: " + this.localPath);
         return true;
     }
 
-    public void installOrUpdate() throws BlackmarketUpdaterException {
+    public boolean installOrUpdate() throws BlackmarketUpdaterLauncher {
+    	boolean newChanges = false;
         boolean alreadyInstalled = openLocal();
         if (alreadyInstalled) {
-            update();
+            newChanges = update();
         } else {
             initialDownload();
+            newChanges = true;
         }
+        if (newChanges) {
+        	ps.println("+Blackmarket successfully updated");
+		} else {
+			ps.println("+Blackmarket is up-to-date");
+		}
+        return newChanges;
     }
 
 }

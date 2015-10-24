@@ -15,14 +15,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package net.thirdy.blackmarket.updater;
+package net.thirdy.blackmarket.launcher;
 
 /**
  * @author thirdy
  *
  */
-public class BlackmarketUpdaterException extends Exception {
-	public BlackmarketUpdaterException(String msg, Throwable cause) {
+public class BlackmarketUpdaterLauncher extends Exception {
+	public BlackmarketUpdaterLauncher(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 }
