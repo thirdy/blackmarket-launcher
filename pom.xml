@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>net.thirdy.blackmarket.updater.Main</mainClass>
+		<mainClass>net.thirdy.blackmarket.launcher.Main</mainClass>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -57,7 +57,7 @@
 							<mainClass>${mainClass}</mainClass>
 						</manifest>
 					</archive>
-					<finalName>blackmarket-updater</finalName>
+					<finalName>blackmarket-launcher</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>
@@ -83,8 +83,8 @@
 						</goals>
 						<configuration>
 							<headerType>console</headerType>
-							<outfile>target/blackmarket-up.exe</outfile>
-							<jar>target/blackmarket-updater.jar</jar>
+							<outfile>target/blackmarket-launcher.exe</outfile>
+							<jar>target/blackmarket-launcher.jar</jar>
 							<errTitle>blackmarket-up</errTitle>
 							<supportUrl>http://thirdy.github.io/blackmarket/</supportUrl>
 							<classPath>
