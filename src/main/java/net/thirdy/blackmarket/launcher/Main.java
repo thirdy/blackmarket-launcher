@@ -62,7 +62,7 @@ public class Main extends Application {
 		List<String> args = getParameters().getRaw();
 		
         String local = args.size() == 2 ? args.get(0) : "./lib";
-        String remote = args.size() == 2 ? args.get(1) : "https://github.com/poeblackmarket/blackmarket-releases.git";
+        String remote = args.size() == 2 ? args.get(1) : "https://github.com/thirdy/blackmarket-release.git";
         
         if (args.size() == 1 && "-skip".equalsIgnoreCase(args.get(0))) {
         	finishedAllTasks();

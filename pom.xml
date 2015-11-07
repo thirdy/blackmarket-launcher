@@ -82,7 +82,7 @@
 							<goal>launch4j</goal>
 						</goals>
 						<configuration>
-							<headerType>console</headerType>
+							<headerType>gui</headerType>
 							<outfile>target/blackmarket-launcher.exe</outfile>
 							<jar>target/blackmarket-launcher.jar</jar>
 							<errTitle>blackmarket-launcher</errTitle>
